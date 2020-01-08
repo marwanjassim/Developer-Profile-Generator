@@ -1,0 +1,22 @@
+{
+  "name": "developer-profile-generator",
+  "version": "1.0.0",
+  "description": "Developer profile generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marwanjassim/Developer-Profile-Generator.git"
+  },
+  "author": "Marwan Jassim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marwanjassim/Developer-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/marwanjassim/Developer-Profile-Generator#readme",
+  "dependencies": {
+    "@octokit/rest": "^16.36.0"
+  }
+}
