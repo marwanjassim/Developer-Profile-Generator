@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/marwanjassim/Developer-Profile-Generator#readme",
   "dependencies": {
-    "@octokit/rest": "^16.36.0"
+    "@octokit/rest": "^16.36.0",
+    "electron": "^5.0.3",
+    "electron-html-to": "^2.6.0"
   }
 }

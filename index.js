@@ -2,6 +2,14 @@
 const Octokit = require("@octokit/rest");
 const octokit = new Octokit();
 
+// Create PDF converter
+var fs = require('fs'),
+    convertFactory = require('electron-html-to');
+
+var conversion = convertFactory({
+  converterPath: convertFactory.converters.PDF
+});
+    
 // Create terminal input
 const readline = require('readline').createInterface({
   input: process.stdin,
@@ -30,13 +38,28 @@ readline.question("Enter GitHub username: ", (name) => {
           starCount = starCount + "+"
         }
 
-        console.log(generateHTML(result.data, starCount, color))
+        var profileHTML = generateHTML(result.data, starCount, color)
+        conversion({
+          html: profileHTML,
+          pdf: {
+            printBackground: true
+          }
+        }, function(err, result) {
+          if (err) {
+            return console.error(err);
+          }
+         
+          console.log(result.logs);
+          result.stream.pipe(fs.createWriteStream(name + '.pdf'));
+          conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
+        });        
+
       }).catch(() => {
-        console.log("Failed to load starred repo info");
+        console.error("Failed to load starred repo info");
       })
     }).catch(() => {
       // Failed to get user (maybe doesn't exist?)
-      console.log("Failed to load user info");
+      console.error("Failed to load user info");
     })
     readline.close()
   })
