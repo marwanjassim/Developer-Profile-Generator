@@ -1,4 +1,4 @@
-// Create GitHub API client
+ // Create GitHub API client
 const Octokit = require("@octokit/rest");
 const octokit = new Octokit();
 
@@ -14,8 +14,21 @@ readline.question("Enter GitHub username: ", (name) => {
   octokit.users.getByUsername({
     username: name
   }).then(result  => {
-	  // Succeeded, print info to console
-    console.log(result)
+    // Succeeded, print info to console
+    octokit.activity.listReposStarredByUser({
+      username: name,
+      per_page: 100 // Maximum allowed by API
+    }).then(starredResult => {
+      var starCount = `${starredResult.data.length}`
+      // If we have 100 stars, there might be more.
+      if (starredResult.data.length === 100) {
+        starCount = starCount + "+"
+      }
+      console.log(result.data)
+      console.log("Starred Repos: " + starCount)   
+    }).catch(() => {
+      console.log("Failed to load starred repo info");
+    })
   }).catch(() => {
     // Failed to get user (maybe doesn't exist?)
     console.log("Failed to load user info");
