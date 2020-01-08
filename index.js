@@ -48,8 +48,6 @@ readline.question("Enter GitHub username: ", (name) => {
           if (err) {
             return console.error(err);
           }
-         
-          console.log(result.logs);
           result.stream.pipe(fs.createWriteStream(name + '.pdf'));
           conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
         });        
