@@ -49,8 +49,8 @@ readline.question("Enter GitHub username: ", (name) => {
             return console.error(err);
           }
           result.stream.pipe(fs.createWriteStream(name + '.pdf'));
-          conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
-        });        
+          conversion.kill();
+	});        
 
       }).catch(() => {
         console.error("Failed to load starred repo info");
